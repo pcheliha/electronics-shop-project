@@ -23,3 +23,8 @@ def test_item_name():
     assert smartphone1.string_to_number("5") == 5
     with pytest.raises(Exception):
         smartphone1.set_name
+
+
+def test_repr_str():
+    assert repr(smartphone) == 'Item("Смартфон", 15.0, 5)'
+    assert str(smartphone) == "Смартфон"
