@@ -58,7 +58,10 @@ class Item:
         with open("items.csv", encoding="1251") as csvfile:
             data = csv.DictReader(csvfile)
             for i in data:
-                print(i["name"], i["price"], i["quantity"])
+                name = i['name']
+                price = int(i['price'])
+                quantity = int(i['quantity'])
+                cls(name, price, quantity)
 
 
 
