@@ -2,7 +2,7 @@ from src.item import Item
 from src.phone import Phone
 
 phone1 = Phone("iPhone 14", 120_000, 5, 2)
-item1 = Item("Смартфон", 10000, 20)
+item1 = Item("РЎРјР°СЂС‚С„РѕРЅ", 10000, 20)
 
 
 def test_Phone():
