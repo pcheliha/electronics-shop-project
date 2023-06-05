@@ -71,4 +71,32 @@ class Item:
                 cls(name, price, quantity)
 
 
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError("Складывать можно только объекты Item и дочерние от них")
+        return self.quantity + other.quantity
+
+
+
+class KeyboardMixin:
+    def __init__(self, language="EN"):
+        self.__language = language
+
+    @property
+    def language(self):
+        return self.__language
+
+    @language.setter
+    def language(self, lang):
+        if lang != "EN" or "RU":
+            raise AttributeError("property 'language' of 'KeyBoard' object has no setter")
+        self.__language = lang
+
+    def change_lang(self):
+        if self.__language == 'EN':
+            self.__language = 'RU'
+        elif self.__language == 'RU':
+            self.__language = 'EN'
+        return self
+
 
