@@ -1,9 +1,7 @@
 import csv
-
-
-class InstantiateCSVError(Exception):
-    pass
-
+import pathlib
+import os
+from src.error import InstantiateCSVError
 
 class Item:
     """
@@ -62,18 +60,29 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        self.price = self.price * self.pay_rate
+        self.price = self.price * Item.pay_rate
         return self.price
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open("items.csv", encoding="1251") as csvfile:
-            data = csv.DictReader(csvfile)
-            for i in data:
-                name = i['name']
-                price = int(i['price'])
-                quantity = int(i['quantity'])
-                cls(name, price, quantity)
+        try:
+            file = open("../src/items.csv", encoding="1251")
+        except Exception as ex:
+            print(ex)
+        else:
+            with file:
+                data = csv.DictReader(file)
+                try:
+                    for i in data:
+                        if None in i.values():
+                            raise InstantiateCSVError
+                        else:
+                            name, price, quantity = i['name'], int(i['price']), int(i['quantity'])
+                            cls(name, price, quantity)
+                except InstantiateCSVError as ex:
+                    print(ex.message)
+                except ValueError as ex:
+                    print(ex)
 
     def __add__(self, other):
         if not isinstance(other, Item):

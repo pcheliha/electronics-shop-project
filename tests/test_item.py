@@ -1,4 +1,5 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
+import csv
 
 import pytest
 
@@ -39,6 +40,14 @@ def test_add():
         phone1 + 10
     with pytest.raises(ValueError):
         item1 + 10
+
+
+def test_instantiate_from_csv():
+    file = open("/Users/Pchel/PycharmProjects/electronics-shop-project1/src/items.csv", encoding="1251")
+    data = csv.DictReader(file)
+    assert Item.instantiate_from_csv() is None
+
+
 
 
 
